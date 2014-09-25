@@ -45,7 +45,20 @@ public class BST {
 				|| key >auxRoot.data && rfindAux(key, auxRoot.right));
 	}
 	
-	//find parent
+	//return node
+	public BSTNode returnfind(int key) {
+		BSTNode auxRoot = root;
+		while (auxRoot != null) {
+			if (auxRoot.data == key)
+				return auxRoot;
+			if (key < auxRoot.data)
+				auxRoot = auxRoot.left;
+			else auxRoot = auxRoot.right;
+		}
+		return null;
+	}
+	
+	//return parent
 	public BSTNode findp(BSTNode child) {
 		BSTNode parent = null;
 		BSTNode auxRoot = root;
@@ -98,38 +111,76 @@ public class BST {
 	}
 	
 	//deletion
+	//http://www.mathcs.emory.edu/~cheung/Courses/171/Syllabus/9-BinTree/BST-delete.html
+	//http://www.mathcs.emory.edu/~cheung/Courses/171/Syllabus/9-BinTree/BST-delete2.html
 	public void delete(int key) {
-		BSTNode auxRoot = root;
 		BSTNode parent = null;
-		while (auxRoot != null) {
-			//case1: no subtree
-			if (auxRoot.left == null && auxRoot.right == null) {
-				//if root
-				if (root.data == key){
-					root = null;
-					return;
-				}
-				//not root
-				if (auxRoot.data == key){
-					parent = findp(auxRoot);
-					if (key < parent.data) {
-						parent.left = null;
-						return;
-					}
-					else parent.right = null;
-				}
+		BSTNode successor = null;
+		BSTNode victim = returnfind(key);
+		//if not found
+		if (victim == null)
+			return;
+		//case1: no subtree
+		if (victim.left == null && victim.right == null) {
+			//if root
+			if (victim == root){
+				root = null;
+				return;
 			}
-			//case2: one subtree
-			//right subtree
-			if (auxRoot.left == null) {
-				//if root
-				if (root.data == key) {
-					root = root.right;
-					return;
-				}
-			}
-			//case3:
+			//not root
+			parent = findp(victim);
+			if(parent.left == victim)
+				parent.left = null;
+			else
+				parent.right = null;
+			return;
 		}
+		//case2: one subtree
+		//right subtree
+		if (victim.left == null) {
+			//if root
+			if (victim == root) {
+				root = root.right;
+				return;
+			}
+			parent = findp(victim);
+			if (parent.left == victim)
+				parent.left = victim.right;
+			else
+				parent.right = victim.right;
+			return;
+		}
+		//left subtree
+		if (victim.right == null) {
+			//if root
+			if(victim == root) {
+				root = root.left;
+				return;
+			}
+			parent = findp(victim);
+			if (parent.left == victim)
+				parent.left = victim.left;
+			else
+				parent.right = victim.left;
+			return;
+		}
+		//case3: two subtree
+		if (victim.right.left == null) {
+			//special case, right node of victim is the successor
+			victim.data = victim.right.data;
+			victim.right = victim.right.right;
+			return;
+		}
+		successor = victim.right;
+		BSTNode succP = victim;
+		
+		//find successor node of node victim
+		while (successor.left != null) {
+			succP = successor;
+			successor = successor.left;
+		}
+		victim.data = successor.data;
+		succP.left = successor.right;
 	}
 	
 	
