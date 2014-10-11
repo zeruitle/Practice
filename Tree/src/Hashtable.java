@@ -18,5 +18,5 @@ public class Hashtable {
 		}
 	}
 	
-	class WordList
+	//class WordList
 }
