@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 
 public class Test {
 
@@ -8,8 +10,24 @@ public class Test {
 		// TODO Auto-generated method stub
 		//for (int i = 0; i < 100 ; i++){
 		//System.out.println(i+" "+ifPow2(i));}
-		System.out.println(parity(null));
+		//System.out.println(parity(null));
+		countString("asasd!!!!!#######");
 
+	}
+	
+	public static HashMap countString(String input){
+		//use hashtable for threads
+		HashMap<Character, Integer> result = new HashMap<Character, Integer>();
+		//128 size for standard ascii code, change size for different coding
+		int[] tmp = new int[128];
+		for (char c : input.toCharArray()){
+			tmp[(int)c]++;
+		}
+		for(int i = 0; i <tmp.length; i++){
+			if(tmp[i] > 1)
+				result.put((char)i,tmp[i]);
+		}
+		return result;
 	}
 	
 	public static int factorial(int input){
