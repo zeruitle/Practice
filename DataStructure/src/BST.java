@@ -1,6 +1,6 @@
 
 public class BST {
-	private class BSTNode {
+	public class BSTNode {
 		public int data;
 		public BSTNode left,right;
 		
@@ -11,7 +11,7 @@ public class BST {
 		}
 	}
 	
-	private BSTNode root;
+	public BSTNode root;
 	private int size;
 	
 	//initialize
@@ -80,6 +80,9 @@ public class BST {
 	//add
 	public void add(int foo) {
 		BSTNode auxRoot = root;
+		if (auxRoot == null){
+			root = new BSTNode(null,foo,null);
+		}
 		while (auxRoot != null) {
 			if (auxRoot.data == foo) {
 				System.out.println("repeat input");
@@ -87,12 +90,14 @@ public class BST {
 			}
 			if (foo < auxRoot.data)
 				if (auxRoot.left == null) {
+					System.out.println("adding "+foo);
 					auxRoot.left = new BSTNode(null,foo,null);
 					return;
 				} else
 					auxRoot = auxRoot.left;
 			else
 				if (auxRoot.right == null) {
+					System.out.println("adding "+foo);
 					auxRoot.right = new BSTNode(null,foo,null);
 					return;
 				} else
@@ -183,9 +188,22 @@ public class BST {
 		succP.left = successor.right;
 	}
 	
+	/*public BSTNode commonAncestor(BSTNode root, BSTNode p, BSTNode q){
+		//System.out.println(root.left.data+" "+p.data+" "+q.data);
+		BSTNode auxRoot = this.root;
+		if (covers(auxRoot.left, p) && covers(auxRoot.left, q))
+			return commonAncestor(auxRoot.left, p, q);
+		if (covers(auxRoot.right, p) && covers(auxRoot.right, q))
+			return commonAncestor(auxRoot.left, p, q);
+		return auxRoot;
+	}
 	
+	private boolean covers(BSTNode root, BSTNode p){
+		if (root == null) return false;
+		if (root == p) return true;
+		return covers(root.left,p) || covers(root.right,p);
+	}*/
 	
-	
-	
+	//public BSTNode 
 	
 }

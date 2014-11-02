@@ -11,8 +11,15 @@ public class Test {
 		//for (int i = 0; i < 100 ; i++){
 		//System.out.println(i+" "+ifPow2(i));}
 		//System.out.println(parity(null));
-		countString("asasd!!!!!#######");
-
+		//countString("asasd!!!!!#######");
+		BST tree = new BST();
+		for(int i = 0; i< 10; i++){
+			tree.add(i);
+		}
+		tree.delete(3);
+		//System.out.println(tree.left().data);
+		//System.out.println(tree.root.data+" "+tree.returnfind(4).data+" "+tree.returnfind(1).data);
+		//System.out.println((tree.commonAncestor(tree.root,tree.returnfind(4),tree.returnfind(1))).data);
 	}
 	
 	public static HashMap countString(String input){
